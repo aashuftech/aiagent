@@ -1,0 +1,19 @@
+{
+  "name": "daypilot-ai-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Express API for DayPilot AI scheduling",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^3.1.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.3.0"
+  }
+}

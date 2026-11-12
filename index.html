@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f7fb" />
+    <meta name="description" content="DayPilot AI is your personal daily task planner." />
+    <title>DayPilot AI — Personal daily planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <a class="brand" href="#" aria-label="DayPilot AI home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M16 4.5v23M4.5 16h23M7.9 7.9l16.2 16.2m0-16.2L7.9 24.1" />
+              <circle cx="16" cy="16" r="5.2" />
+            </svg>
+          </span>
+          <span class="brand-name">DayPilot <span>AI</span></span>
+        </a>
+        <div class="ai-status" id="ai-status" role="status" aria-live="polite">
+          <i></i>
+          <span id="ai-status-label">Ready</span>
+        </div>
+      </header>
+
+      <main class="page-shell">
+        <section class="page-intro">
+          <p class="eyebrow">YOUR PERSONAL DAILY PLANNER</p>
+          <h1>A little more clarity for today.</h1>
+          <p>Add what matters, then make a plan that fits your day.</p>
+        </section>
+
+        <div class="planner-grid">
+          <section class="panel task-panel" aria-labelledby="tasks-heading">
+            <div class="panel-heading">
+              <div>
+                <h2 id="tasks-heading">Your tasks</h2>
+                <p>Capture and organize what you need to do.</p>
+              </div>
+              <span class="task-count"><span id="task-count">0</span> tasks</span>
+            </div>
+
+            <form class="task-form" id="task-form">
+              <label class="field-label" for="task-input">Task name</label>
+              <input
+                id="task-input"
+                name="title"
+                type="text"
+                maxlength="120"
+                placeholder="What do you need to get done?"
+                autocomplete="off"
+                required
+              />
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="field-label" for="task-priority">Priority</label>
+                  <select id="task-priority" name="priority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                </div>
+                <div class="form-field duration-entry">
+                  <label class="field-label" for="task-duration">Estimated duration</label>
+                  <div class="input-suffix">
+                    <input
+                      id="task-duration"
+                      name="duration"
+                      type="number"
+                      min="5"
+                      max="1440"
+                      step="5"
+                      value="30"
+                      required
+                    />
+                    <span>min</span>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="field-label" for="task-deadline">Deadline (optional)</label>
+                  <input id="task-deadline" name="deadline" type="time" aria-label="Task deadline (optional)" />
+                </div>
+              </div>
+              <button class="add-task-button" type="submit">
+                <span aria-hidden="true">+</span>
+                Add task
+              </button>
+            </form>
+
+            <div class="task-list-heading">
+              <span>Today’s list</span>
+              <span id="task-list-count">0 pending</span>
+            </div>
+            <div class="task-filters" role="group" aria-label="Filter tasks">
+              <button class="filter-button selected" type="button" data-filter="all" aria-pressed="true">All <span>0</span></button>
+              <button class="filter-button" type="button" data-filter="pending" aria-pressed="false">Pending <span>0</span></button>
+              <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">Completed <span>0</span></button>
+            </div>
+            <div class="task-list" id="task-list" aria-live="polite"></div>
+          </section>
+
+          <section class="panel schedule-panel" id="schedule" aria-labelledby="schedule-heading">
+            <div class="panel-heading schedule-heading">
+              <div>
+                <p class="eyebrow">YOUR PLAN</p>
+                <h2 id="schedule-heading">Today’s schedule</h2>
+                <p>Choose your hours and let your tasks find their place.</p>
+              </div>
+            </div>
+
+            <div class="schedule-settings" aria-label="Daily scheduling hours">
+              <label>
+                <span class="field-label">Day starts</span>
+                <input id="schedule-start" type="time" value="09:00" />
+              </label>
+              <span class="settings-separator" aria-hidden="true">to</span>
+              <label>
+                <span class="field-label">Day ends</span>
+                <input id="schedule-end" type="time" value="17:30" />
+              </label>
+            </div>
+
+            <button class="auto-schedule-button" id="auto-schedule" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m12 3 1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3Z" />
+                <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
+              </svg>
+              <span class="schedule-button-label">Auto-Schedule My Day</span>
+            </button>
+
+            <section class="schedule-explanation" id="schedule-explanation" hidden aria-live="polite"></section>
+            <div class="timeline" id="timeline">
+              <p class="schedule-empty">
+                Your timetable will appear here when you’re ready to plan.
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
